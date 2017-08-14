@@ -1,7 +1,7 @@
-var path = require('path')
-var utils = require('./utils')
-var config = require('../config')
-var vueLoaderConfig = require('./vue-loader.conf')
+var path = require('path');
+var utils = require('./utils');
+var config = require('../config');
+var vueLoaderConfig = require('./vue-loader.conf');
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -9,7 +9,7 @@ function resolve (dir) {
 
 module.exports = {
   entry: {
-    app: './src/main.js',
+    // app: './src/main.js',
     driver: './src/event/driver/entry.js',
   },
   output: {
@@ -46,6 +46,16 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel-loader',
         include: [resolve('src'), resolve('test')]
+      },
+      {
+        test: /\.scss$/,
+        use: [{
+          loader: "style-loader"
+        }, {
+          loader: "css-loader"
+        }, {
+          loader: "sass-loader",
+        }]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
