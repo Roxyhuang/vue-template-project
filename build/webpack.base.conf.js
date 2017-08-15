@@ -10,8 +10,8 @@ function resolve (dir) {
 module.exports = {
   entry: {
     // app: './src/main.js',
-    // driver: './src/event/driver/detail.js',
-    'claim-detail': './src/event/webview/claim/detail.js',
+    // driver: './src/pages/driver/detail.js',
+    'claim-detail': './src/pages/webview/claim/detail.js',
   },
   output: {
     path: config.build.assetsRoot,
