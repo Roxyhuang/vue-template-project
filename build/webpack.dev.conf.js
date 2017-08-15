@@ -11,7 +11,7 @@ Object.keys(baseWebpackConfig.entry).forEach(function (name) {
   baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name])
 })
 
-const devConfig = merge(baseWebpackConfig, {
+const webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap })
   },
@@ -35,7 +35,7 @@ const devConfig = merge(baseWebpackConfig, {
 });
 
 Object.keys(baseWebpackConfig.entry).forEach(name => {
-  devConfig.plugins.push(
+  webpackConfig.plugins.push(
     new HtmlWebpackPlugin({
       filename: `${name}.html`,
       template: 'index.html',
@@ -44,4 +44,4 @@ Object.keys(baseWebpackConfig.entry).forEach(name => {
   );
 });
 
-module.exports = devConfig;
+module.exports = webpackConfig;
