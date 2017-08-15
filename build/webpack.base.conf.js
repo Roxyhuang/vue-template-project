@@ -7,10 +7,8 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-module.exports = {
+const baseConfig = {
   entry: {
-    // app: './src/main.js',
-    // driver: './src/pages/driver/detail.js',
     'claim-detail': './src/pages/webview/claim/detail.js',
   },
   output: {
@@ -85,3 +83,5 @@ module.exports = {
     ]
   }
 };
+
+module.exports = baseConfig;
