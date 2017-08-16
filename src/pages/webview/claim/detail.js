@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import { Button, Header } from 'mint-ui';
 import 'mint-ui/lib/style.css';
+import './views/Detail.scss';
 import App from './views/Detail';
 
 Vue.config.productionTip = false;

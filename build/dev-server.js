@@ -8,6 +8,8 @@ if (!process.env.NODE_ENV) {
 const fs = require('fs');
 const opn = require('opn');
 const path = require('path');
+// const serveIndex = require('serve-index');
+// const vhost = require('vhost');
 const express = require('express');
 const webpack = require('webpack');
 const proxyMiddleware = require('http-proxy-middleware');
@@ -60,19 +62,6 @@ app.use(devMiddleware);
 // compilation error display
 app.use(hotMiddleware);
 
-// create index html
-let item = '';
-Object.keys(webpackConfig.entry).forEach(name => {
-  item += `<a href="/${name}.html">${name}.html</a>`;
-});
-let dom = '<!DOCTYPE html><html><head></head><body>'+item+'</body></html>';
-
-const writerStream = fs.createWriteStream(`./static/dev-index.html`);
-writerStream.write(dom,'UTF8');
-writerStream.end();
-writerStream.on('finish', function() {
-  console.log("写入完成。");
-});
 // serve pure static assets
 const staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory);
 app.use(staticPath, express.static('./static'));
@@ -89,6 +78,7 @@ devMiddleware.waitUntilValid(() => {
   console.log('> Listening at ' + uri + '\n');
   // when env is testing, don't need open it
   if (autoOpenBrowser && process.env.NODE_ENV !== 'testing') {
+    // app.use('/', serveIndex('/', {'icons': true}));
     opn(uri)
   }
   _resolve()
