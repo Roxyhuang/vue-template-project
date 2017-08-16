@@ -10,6 +10,8 @@ function resolve (dir) {
 const baseConfig = {
   entry: {
     'claim-detail': './src/pages/webview/claim/detail.js',
+    'claim-detail1': './src/pages/webview/claim/detail.js',
+    'claim-detail2': './src/pages/webview/claim/detail.js',
   },
   output: {
     path: config.build.assetsRoot,

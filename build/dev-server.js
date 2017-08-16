@@ -5,6 +5,7 @@ if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
 }
 
+const fs = require('fs');
 const opn = require('opn');
 const path = require('path');
 const express = require('express');
@@ -59,6 +60,19 @@ app.use(devMiddleware);
 // compilation error display
 app.use(hotMiddleware);
 
+// create index html
+let item = '';
+Object.keys(webpackConfig.entry).forEach(name => {
+  item += `<a href="/${name}.html">${name}.html</a>`;
+});
+let dom = '<!DOCTYPE html><html><head></head><body>'+item+'</body></html>';
+
+const writerStream = fs.createWriteStream(`./static/dev-index.html`);
+writerStream.write(dom,'UTF8');
+writerStream.end();
+writerStream.on('finish', function() {
+  console.log("写入完成。");
+});
 // serve pure static assets
 const staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory);
 app.use(staticPath, express.static('./static'));
