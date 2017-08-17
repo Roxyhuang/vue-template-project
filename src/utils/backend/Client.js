@@ -12,6 +12,28 @@ class Client {
       },
       opts,
     );
+    // if (opts.method === 'POST' || opts.method === 'PUT') {
+    //   opts.headers.Accept = 'application/json';
+    //   opts.headers['Content-Type'] = 'application/json';
+    //   opts.headers.APPID = config.app.id;
+    //   opts.headers.APPVER = config.app.version;
+    //   opts.headers.VUSER = userToken;
+    //   if (userToken === null) {
+    //     opts.headers.VUSER = '';
+    //   }
+      return function* axio(opt) {
+        yield axios(
+          {
+            method: opt.methods,
+            url: opt.url,
+            data: {
+              firstName: 'Fred',
+              lastName: 'Flintstone',
+            },
+          },
+        ).then(response => response.data);
+      };
+    // },
   }
 
 }
