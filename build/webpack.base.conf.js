@@ -49,10 +49,6 @@ const baseConfig = {
         include: [resolve('src'), resolve('test')]
       },
       {
-        test: /\.(sass|scss)$/,
-        use: [ 'style-loader', 'css-loader', 'sass-loader' ]
-      },
-      {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {
