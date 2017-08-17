@@ -9,7 +9,8 @@ const fs = require('fs');
 const opn = require('opn');
 const path = require('path');
 // const serveIndex = require('serve-index');
-// const vhost = require('vhost');
+const vhost = require('vhost');
+// const connect = require('connect');
 const express = require('express');
 const webpack = require('webpack');
 const proxyMiddleware = require('http-proxy-middleware');
@@ -24,6 +25,7 @@ const autoOpenBrowser = !!config.dev.autoOpenBrowser;
 const proxyTable = config.dev.proxyTable;
 
 const app = express();
+// const testApp = connect();
 const compiler = webpack(webpackConfig);
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {
@@ -51,6 +53,15 @@ Object.keys(proxyTable).forEach(function (context) {
   }
   app.use(proxyMiddleware(options.filter || context, options));
 });
+
+app.use(vhost('foo.bar.example.com', function handle (req, res, next) {
+  req.vhost.host === 'foo.bar.example.com:4000';
+  req.vhost.hostname === 'foo.bar.example.com';
+  req.vhost.length === 2;
+  req.vhost[0] === 'foo';
+  req.vhost[1] === 'bar';
+  next();
+}));
 
 // handle fallback for HTML5 history API
 app.use(require('connect-history-api-fallback')());
