@@ -10,6 +10,7 @@ const opn = require('opn');
 const path = require('path');
 const express = require('express');
 const serveIndex = require('serve-index');
+const vhost = require('vhost');
 const webpack = require('webpack');
 const proxyMiddleware = require('http-proxy-middleware');
 const webpackConfig = require('./webpack.dev.conf');
@@ -19,6 +20,7 @@ const port = process.env.PORT || config.dev.port;
 // automatically open browser, if not set will be false
 const autoOpenBrowser = !!config.dev.autoOpenBrowser;
 // Define HTTP proxies to your custom API backend
+
 // https://github.com/chimurai/http-proxy-middleware
 const proxyTable = config.dev.proxyTable;
 
@@ -36,6 +38,7 @@ const hotMiddleware = require('webpack-hot-middleware')(compiler, {
   heartbeat: 2000
 });
 app.use(index);
+app.use(vhost('local.neo.com', app));
 // force page reload when html-webpack-plugin template changes
 compiler.plugin('compilation', function (compilation) {
   compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
@@ -67,7 +70,7 @@ app.use(hotMiddleware);
 const staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory);
 app.use(staticPath, express.static('./static'));
 
-const uri = 'http://localhost:' + port;
+const uri = 'http://local.neo.com:' + port;
 
 let _resolve;
 const readyPromise = new Promise(resolve => {
