@@ -90,6 +90,7 @@ Object.keys(baseWebpackConfig.entry).forEach(name => {
         // more options:
         // https://github.com/kangax/html-minifier#options-quick-reference
       },
+      chunks: [name],
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency'
     })

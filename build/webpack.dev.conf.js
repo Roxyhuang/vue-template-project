@@ -33,7 +33,16 @@ Object.keys(baseWebpackConfig.entry).forEach(name => {
     new HtmlWebpackPlugin({
       filename: `${name}.html`,
       template: 'index.html',
-      inject: true
+      inject: true,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+        // more options:
+        // https://github.com/kangax/html-minifier#options-quick-reference
+      },
+      chunks: [name],
+      chunksSortMode: 'dependency'
     })
   );
 });
