@@ -38,7 +38,8 @@ const hotMiddleware = require('webpack-hot-middleware')(compiler, {
   heartbeat: 2000
 });
 app.use(index);
-app.use(vhost('local.neo.com', app));
+app.use(vhost(config.dev.vhostUrl, app));
+
 // force page reload when html-webpack-plugin template changes
 compiler.plugin('compilation', function (compilation) {
   compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
@@ -70,7 +71,7 @@ app.use(hotMiddleware);
 const staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory);
 app.use(staticPath, express.static('./static'));
 
-const uri = 'http://local.neo.com:' + port;
+const uri = `${config.dev.vhostUrl}:${port}`;
 
 let _resolve;
 const readyPromise = new Promise(resolve => {
