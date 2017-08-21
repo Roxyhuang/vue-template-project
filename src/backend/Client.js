@@ -1,5 +1,5 @@
 import axios from 'axios';
-import config from '../../global/client_config/config';
+import config from '../global/client_config/config';
 
 class Client {
   _fetch(opts) {

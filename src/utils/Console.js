@@ -1,25 +1,49 @@
-/* eslint-disable no-new */
-class Console {
-  static log(msg) {
-    console.log(msg);
-  }
+/* eslint-disable no-console */
+/* eslint-disable prefer-rest-params */
 
-  static error(msg) {
-    console.error(msg);
-  }
+let Console = {
+  log() {
+  },
+  info() {
+  },
+  error() {
+  },
+  warn() {
+  },
+  dir() {
+  },
+};
 
-  static info(msg) {
-    console.info(msg);
+// if (process.env.NODE_ENV !== 'production') {
+if (window.console && console.log) {
+  if (Function.prototype.bind) {
+    Console = {
+      log: Function.prototype.bind.call(console.log, console),
+      info: Function.prototype.bind.call(console.info, console),
+      error: Function.prototype.bind.call(console.error, console),
+      warn: Function.prototype.bind.call(console.warn, console),
+      dir: Function.prototype.bind.call(console.dir, console),
+    };
+  } else {
+    Console = {
+      log() {
+        Function.prototype.apply.call(console.log, console, arguments);
+      },
+      info() {
+        Function.prototype.apply.call(console.info, console, arguments);
+      },
+      error() {
+        Function.prototype.apply.call(console.error, console, arguments);
+      },
+      warn() {
+        Function.prototype.apply.call(console.warn, console, arguments);
+      },
+      dir() {
+        Function.prototype.apply.call(console.dir, console, arguments);
+      },
+    };
   }
-
-  static warn(msg) {
-    console.warn(msg);
-  }
-
-  static clear() {
-    console.clear();
-  }
-
 }
+// }
 
-export default Console;
+module.exports = Console;
