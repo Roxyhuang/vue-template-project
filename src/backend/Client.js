@@ -3,19 +3,19 @@ import _ from 'underscore';
 import CONFIG from '../global/client_config';
 import Exception from '../utils/Exception';
 
-class HmbClient {
+class Client {
 
   initialize(token) {
-    if (!_.isNull(token) && _.isUndefined(token.sessionToken)) {
+    if (token.sessionToken) {
       throw new Error('TokenMissing');
     }
-    if (_.isNull(token) || _.isUndefined(token)) {
+    if (token) {
       this._sessionToken = null;
     }
-    if (!_.isNull(token)) {
+    if (token) {
       this._sessionToken = token.sessionToken;
     }
-    if (_.isUndefined(this._sessionToken)) {
+    if (token) {
       this._sessionToken = null;
     }
 
@@ -23,20 +23,6 @@ class HmbClient {
       ? CONFIG.server.production.url
       : CONFIG.server.qa.url;
   }
-
-  /**
-   * scene  STRING  上传场景
-   * 公开图片：image
-   * 私有附件：attach
-   */
-  async getQiniuToken(data) {
-    return await this._fetch({
-      method: 'POST',
-      url: 'user/getQiniuUpToken',
-      body: data,
-    });
-  }
-
   /* eslint-disable no-param-reassign */
   async _fetch(opts) {
     opts = _.extend({
@@ -92,11 +78,5 @@ class HmbClient {
   }
 }
 
-_.extend(HmbClient.prototype, hmbUserClient);
-_.extend(HmbClient.prototype, hmbKaseClient);
-_.extend(HmbClient.prototype, hmbProductClient);
-_.extend(HmbClient.prototype, hmbBidAuthClient);
-_.extend(HmbClient.prototype, hmbCommentClient);
-_.extend(HmbClient.prototype, hmbInboxClient);
 
-export default new HmbClient();
+export default new Client();
