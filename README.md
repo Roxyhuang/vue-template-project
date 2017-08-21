@@ -1,6 +1,6 @@
-# hmb_2c_event
+# vue-template-project
 
-> A Vue project for HMB
+> A Vue project for Neo
 
 ## Build Setup
 
