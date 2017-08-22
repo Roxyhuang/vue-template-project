@@ -5,6 +5,8 @@
   </div>
 </template>
 <script>
+  import output from '../../../../backend/mixin/output';
+
   export default {
     data() {
       return {
@@ -12,6 +14,7 @@
       };
     },
     created() {
+      output.test();
     },
   };
 </script>

@@ -10,12 +10,15 @@ module.exports = {
   SESSION_TOKEN_KEY: 'sessionToken',
   server: {
     webView: {
+      qaUrl: '',
       url: '',
     },
     game1: {
+      qaUrl: '',
       url: '',
     },
     game2: {
+      qaUrl: '',
       url: '',
     },
   },

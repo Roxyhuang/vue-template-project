@@ -1,6 +1,5 @@
-import _ from 'underscore';
-
-import CONFIG from '../global/client_config';
+import axios from 'axios';
+import CONFIG from '../global/client_config/config';
 import Exception from '../utils/Exception';
 
 class Client {
@@ -20,8 +19,8 @@ class Client {
     }
 
     this.API_BASE_URL = process.env.NODE_ENV === 'production'
-      ? CONFIG.server.production.url
-      : CONFIG.server.qa.url;
+      ? CONFIG.server.webView.qaUrl
+      : CONFIG.server.webView.url;
   }
   /* eslint-disable no-param-reassign */
   async _fetch(opts) {
@@ -58,7 +57,8 @@ class Client {
 
     let response;
     try {
-      response = await fetch(url, reqOpts);
+      response = await axios(reqOpts);// Send a POST request
+
       res.status = response.status;
       res.code = response.code;
     } catch (error) {
