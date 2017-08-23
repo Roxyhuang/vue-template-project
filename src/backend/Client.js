@@ -1,5 +1,6 @@
 import axios from 'axios';
 import CONFIG from '../global/client_config/config';
+import ProductClient from './mixin/productClient';
 import Exception from '../utils/Exception';
 
 class Client {
@@ -9,19 +10,20 @@ class Client {
       throw new Error('TokenMissing');
     }
     if (token) {
-      this._sessionToken = null;
+      this.sessionToken = null;
     }
     if (token) {
-      this._sessionToken = token.sessionToken;
+      this.sessionToken = token.sessionToken;
     }
     if (token) {
-      this._sessionToken = null;
+      this.sessionToken = null;
     }
 
     this.API_BASE_URL = process.env.NODE_ENV === 'production'
       ? CONFIG.server.webView.qaUrl
       : CONFIG.server.webView.url;
   }
+
   /* eslint-disable no-param-reassign */
   async _fetch(opts) {
     opts = Object.assign({
@@ -37,8 +39,8 @@ class Client {
       url: null,
     };
 
-    if (this._sessionToken) {
-      reqOpts.headers.Authorization = `Bearer ${this._sessionToken}`;
+    if (this.sessionToken) {
+      reqOpts.headers.Authorization = `Bearer ${this.sessionToken}`;
     }
 
     if (opts.method === 'POST' || opts.method === 'PUT') {
@@ -46,7 +48,7 @@ class Client {
       reqOpts.headers['Content-Type'] = 'application/json';
       reqOpts.headers.APPID = CONFIG.app.id;
       reqOpts.headers.APPVER = CONFIG.app.version;
-      reqOpts.headers.VUSER = this._sessionToken;
+      reqOpts.headers.VUSER = this.sessionToken;
     }
 
     if (opts.body) {
@@ -74,10 +76,13 @@ class Client {
           }
           return json.data;
         }
-        throw (new Exception(res.code, response._bodyInit));
+        throw (new Exception(res.code, response.bodyInit));
       });
   }
 }
-
+Object.assign(
+  Client.prototype,
+  ProductClient,
+);
 
 export default new Client();

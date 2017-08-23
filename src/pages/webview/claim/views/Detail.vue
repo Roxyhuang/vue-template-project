@@ -5,7 +5,7 @@
   </div>
 </template>
 <script>
-  import output from '../../../../backend/mixin/output';
+  import Backend from '../../../../backend/Backend';
 
   export default {
     data() {
@@ -14,7 +14,7 @@
       };
     },
     created() {
-      output.test();
+      Backend.getInstance('321321dasdsadas').getMsgList();
     },
   };
 </script>
