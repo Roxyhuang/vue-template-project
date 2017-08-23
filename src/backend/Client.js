@@ -24,7 +24,7 @@ class Client {
   }
   /* eslint-disable no-param-reassign */
   async _fetch(opts) {
-    opts = _.extend({
+    opts = Object.assign({
       method: 'POST', // By default use post
       url: null,
       body: null,
@@ -34,6 +34,7 @@ class Client {
     const reqOpts = {
       method: opts.method,
       headers: {},
+      url: null,
     };
 
     if (this._sessionToken) {
@@ -52,7 +53,7 @@ class Client {
       reqOpts.body = JSON.stringify(opts.body);
     }
 
-    const url = this.API_BASE_URL + opts.url;
+    reqOpts.url = this.API_BASE_URL + opts.url;
     const res = {};
 
     let response;
