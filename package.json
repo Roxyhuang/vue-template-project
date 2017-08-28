@@ -7,8 +7,6 @@
   "scripts": {
     "local": "node build/dev-server.js --local",
     "dev": "node build/dev-server.js",
-    "test": "node build/test-server.js",
-    "start": "node build/dev-server.js",
     "build": "node build/build.js",
     "lint": "eslint --ext .js,.vue src"
   },
