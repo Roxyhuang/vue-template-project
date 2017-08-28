@@ -76,4 +76,13 @@ const baseConfig = {
   }
 };
 
+if (process.argv[3]) {
+  const bundleNames = process.argv[3].split(',');
+  console.log(`building specifying bundles: ${bundleNames}`);
+  Object.keys(baseConfig.entry).forEach(name => {
+    if (!bundleNames.includes(name)) {
+      delete baseConfig.entry[name];
+    }
+  });
+}
 module.exports = baseConfig;
