@@ -40,6 +40,12 @@ const hotMiddleware = require('webpack-hot-middleware')(compiler, {
 app.use(index);
 app.use(vhost(config.dev.vhostUrl, app));
 
+// Set a Proxy Server
+app.use('/api', proxyMiddleware({
+  target: 'http://www.baidu.com',
+  changeOrigin: true,
+}));
+
 // force page reload when html-webpack-plugin template changes
 compiler.plugin('compilation', function (compilation) {
   compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
