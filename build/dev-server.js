@@ -41,7 +41,7 @@ app.use(index);
 app.use(vhost(config.dev.vhostUrl, app));
 
 // Set a Proxy Server
-app.use('/api', proxyMiddleware({
+app.use(config.dev.mockUrl, proxyMiddleware({
   target: 'http://www.baidu.com',
   changeOrigin: true,
 }));
