@@ -9,15 +9,6 @@ class Client {
     if (token.sessionToken) {
       throw new Error('TokenMissing');
     }
-    if (token) {
-      this.sessionToken = null;
-    }
-    if (token) {
-      this.sessionToken = token.sessionToken;
-    }
-    if (token) {
-      this.sessionToken = null;
-    }
 
     this.API_BASE_URL = process.env.NODE_ENV === 'production'
       ? CONFIG.server.webView.qaUrl
